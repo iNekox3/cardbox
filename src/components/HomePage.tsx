@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const QUESTION_NUMBER_START = 1;
+const EMPTY_FLASH_CARD = {
+  front: "",
+  back: "",
+};
 
 const Wrapper = styled.div`
   padding: 24px;
+`;
+
+const PromptText = styled.p`
+  text-align: center;
+  font-weight: bold;
 `;
 
 const FlashCardWrapper = styled.div`
@@ -32,24 +41,42 @@ const Button = styled.button`
   padding: 8px;
 `;
 
+const FormWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 56px;
+`;
+
+const Form = styled.form`
+  display: grid;
+  grid-gap: 16px;
+  padding: 24px;
+  border: 1px solid #000000;
+`;
+
+const FormField = styled.div`
+  display: grid;
+  grid-gap: 8px;
+`;
+
+const FormLabel = styled.label``;
+const FormInput = styled.input``;
+
 interface IFlashCard {
   front: string;
   back: string;
 }
 
-const flashCards: IFlashCard[] = [
-  { front: "評判", back: "ひょう　ばん" },
-  { front: "指名", back: "し　めい" },
-  { front: "お得意さん", back: "お　とく　い　さん" },
-];
-
 export const HomePage = (): JSX.Element => {
+  const [flashCards, setFlashCards] = useState<IFlashCard[]>([]);
   const [questionNumber, setQuestionNumber] = useState<number>(
     QUESTION_NUMBER_START
   );
   const [isShowQuestion, setIsShowQuestion] = useState<boolean>(true);
+  const [formFields, setFormFields] = useState<IFlashCard>(EMPTY_FLASH_CARD);
 
   const currentflashCard = flashCards[questionNumber - 1];
+  const isInvalidInput = formFields.front === "" || formFields.back === "";
 
   const increaseQuestionNumber = () => {
     const isLastCard = questionNumber === flashCards.length;
@@ -73,21 +100,79 @@ export const HomePage = (): JSX.Element => {
     }
   };
 
+  const handleOnSubmit = () => {
+    if (isInvalidInput) {
+      return;
+    }
+
+    setFlashCards([
+      ...flashCards,
+      { front: formFields.front, back: formFields.back },
+    ]);
+
+    const resetFormFields = () => setFormFields(EMPTY_FLASH_CARD);
+    resetFormFields();
+  };
+
   return (
     <Wrapper>
-      <FlashCardWrapper>
-        <FlashCard>
-          <FlashCardText>
-            {isShowQuestion ? currentflashCard.front : currentflashCard.back}
-          </FlashCardText>
-        </FlashCard>
-      </FlashCardWrapper>
+      {!flashCards.length ? (
+        <PromptText>Add a card to begin</PromptText>
+      ) : (
+        <>
+          <FlashCardWrapper>
+            <FlashCard>
+              <FlashCardText>
+                {isShowQuestion
+                  ? currentflashCard.front
+                  : currentflashCard.back}
+              </FlashCardText>
+            </FlashCard>
+          </FlashCardWrapper>
 
-      <ButtonWrapper>
-        <Button onClick={handleOnClick}>
-          {isShowQuestion ? "Reveal answer" : "Next card"}
-        </Button>
-      </ButtonWrapper>
+          <ButtonWrapper>
+            <Button onClick={handleOnClick}>
+              {isShowQuestion ? "Reveal answer" : "Next card"}
+            </Button>
+          </ButtonWrapper>
+        </>
+      )}
+
+      <FormWrapper>
+        <Form>
+          <FormField>
+            <FormLabel htmlFor="front-field">Front</FormLabel>
+            <FormInput
+              type="text"
+              id="front-field"
+              value={formFields.front}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormFields({ ...formFields, front: e.target.value })
+              }
+            />
+          </FormField>
+
+          <FormField>
+            <FormLabel htmlFor="back-field">Back</FormLabel>
+            <FormInput
+              type="text"
+              id="back-field"
+              value={formFields.back}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormFields({ ...formFields, back: e.target.value })
+              }
+            />
+          </FormField>
+
+          <Button
+            type="button"
+            onClick={handleOnSubmit}
+            disabled={isInvalidInput}
+          >
+            Add new card
+          </Button>
+        </Form>
+      </FormWrapper>
     </Wrapper>
   );
 };
