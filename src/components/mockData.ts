@@ -19,7 +19,7 @@ export const mockData: IFlashCard[] = [
   { front: "ご贔屓", back: "ご贔屓（ご　ひ　いき）favour; favor; patronage; favouritism; favoritism; partiality" },
   { front: "急いで", back: "急いで（いそ　いで）hurriedly; in haste; in a rush; quickly" },
   { front: "ご利用", back: "ご利用（ご　り　よう）use; utilization; utilisation; application" },
-  { front: "藤ふ", back: "藤（ふじ）wisteria (esp. Japanese wisteria, Wisteria floribunda); wistaria" },
+  { front: "藤", back: "藤（ふじ）wisteria (esp. Japanese wisteria, Wisteria floribunda); wistaria" },
   { front: "充実", back: "充実（じゅう　じつ）fullness; completion; perfection; substantiality" },
   { front: "囲む", back: "囲む（かこ　む）to surround; to encircle; to enclose; to fence; to wall in" },
   { front: "連日", back: "連日（れん　じつ）day after day; every day" },
