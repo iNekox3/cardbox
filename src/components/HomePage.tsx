@@ -13,6 +13,7 @@ const Wrapper = styled.div`
 `;
 
 const PromptText = styled.p`
+  font-size: 1rem;
   text-align: center;
 `;
 
@@ -81,6 +82,7 @@ export const HomePage = (): JSX.Element => {
   const [formFields, setFormFields] = useState<IFlashCard>(EMPTY_FLASH_CARD);
 
   const currentflashCard = flashCards[questionNumber - 1];
+  const isLastCard = questionNumber === flashCards.length;
   const isInvalidInput = formFields.front === "" || formFields.back === "";
 
   const loadMockData = () => {
@@ -94,7 +96,6 @@ export const HomePage = (): JSX.Element => {
   };
 
   const increaseQuestionNumber = () => {
-    const isLastCard = questionNumber === flashCards.length;
     if (isLastCard) {
       const resetQuestionNumber = () =>
         setQuestionNumber(QUESTION_NUMBER_START);
@@ -147,6 +148,10 @@ export const HomePage = (): JSX.Element => {
         <>
           <FlashCardWrapper>
             <FlashCard>
+              {isLastCard && (
+                <PromptText>This is the last card of the day!</PromptText>
+              )}
+
               <FlashCardText>
                 {isShowQuestion
                   ? currentflashCard.front
