@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { mockData } from "./mockData";
 
 const QUESTION_NUMBER_START = 1;
 const EMPTY_FLASH_CARD = {
@@ -13,27 +14,31 @@ const Wrapper = styled.div`
 
 const PromptText = styled.p`
   text-align: center;
-  font-weight: bold;
 `;
 
 const FlashCardWrapper = styled.div`
-  max-width: 200px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 24px;
 `;
 
 const FlashCard = styled.div`
+  width: 300px;
+  min-height: 200px;
   padding: 16px;
   border: 1px solid #000000;
   border-radius: 6px;
   box-shadow: 2px 2px 4px #888888;
 `;
 
-const FlashCardText = styled.p``;
+const FlashCardText = styled.p`
+  font-size: 1.5rem;
+`;
 
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin: 24px auto 0;
+  margin: auto 0;
 `;
 
 const Button = styled.button`
@@ -62,7 +67,7 @@ const FormField = styled.div`
 const FormLabel = styled.label``;
 const FormInput = styled.input``;
 
-interface IFlashCard {
+export interface IFlashCard {
   front: string;
   back: string;
 }
@@ -77,6 +82,10 @@ export const HomePage = (): JSX.Element => {
 
   const currentflashCard = flashCards[questionNumber - 1];
   const isInvalidInput = formFields.front === "" || formFields.back === "";
+
+  const loadMockData = () => {
+    setFlashCards(mockData);
+  };
 
   const increaseQuestionNumber = () => {
     const isLastCard = questionNumber === flashCards.length;
@@ -117,7 +126,17 @@ export const HomePage = (): JSX.Element => {
   return (
     <Wrapper>
       {!flashCards.length ? (
-        <PromptText>Add a card to begin</PromptText>
+        <>
+          <PromptText>
+            <b>Add a card to begin</b>
+            <br />
+            <br />
+            or
+          </PromptText>
+          <ButtonWrapper>
+            <Button onClick={loadMockData}>Load mock data</Button>
+          </ButtonWrapper>
+        </>
       ) : (
         <>
           <FlashCardWrapper>
