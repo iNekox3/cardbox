@@ -84,7 +84,13 @@ export const HomePage = (): JSX.Element => {
   const isInvalidInput = formFields.front === "" || formFields.back === "";
 
   const loadMockData = () => {
-    setFlashCards(mockData);
+    // Shuffle logic: https://stackoverflow.com/a/46545530
+    const shuffledMockData = mockData
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+
+    setFlashCards(shuffledMockData);
   };
 
   const increaseQuestionNumber = () => {
