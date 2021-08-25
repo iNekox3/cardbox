@@ -55,7 +55,7 @@ export const mockData: IFlashCard[] = [
   { front: "準備", back: "準備（じゅん　び）preparation; arrangements; getting ready; provision; setup; reserving" },
   { front: "酔っ払い", back: "酔っ払い（よっ　ぱら　い）drunkard​" },
   { front: "絡む", back: "絡む（から　む）to pick a quarrel; to find fault" },
-  { front: "お巡りん", back: "お巡りさん（お　まわ　りさん）police officer" },
+  { front: "お巡りさん", back: "お巡りさん（お　まわ　りさん）police officer" },
   { front: "以降", back: "以降（い　こう）on and after; as from; hereafter; thereafter; since" },
   { front: "お勤め", back: "お勤め（お　つと　め）one's business" },
   { front: "頷き", back: "頷き（うなず　き）nod; inclination of the head" },
