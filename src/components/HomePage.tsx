@@ -24,6 +24,7 @@ const FlashCardWrapper = styled.div`
 `;
 
 const FlashCard = styled.div`
+  position: relative;
   width: 300px;
   min-height: 200px;
   padding: 16px;
@@ -34,6 +35,13 @@ const FlashCard = styled.div`
 
 const FlashCardText = styled.p`
   font-size: 1.5rem;
+`;
+
+const QuestionNumber = styled.span`
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  text-align: right;
 `;
 
 const ButtonWrapper = styled.div`
@@ -157,6 +165,8 @@ export const HomePage = (): JSX.Element => {
                   ? currentflashCard.front
                   : currentflashCard.back}
               </FlashCardText>
+
+              <QuestionNumber>{questionNumber}</QuestionNumber>
             </FlashCard>
           </FlashCardWrapper>
 
