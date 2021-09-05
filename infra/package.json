@@ -5,5 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.29.0"
+  },
+  "scripts": {
+    "start": "source .env && node start.js"
   }
 }
