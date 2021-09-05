@@ -535,6 +535,13 @@
     "@aws-sdk/shared-ini-file-loader" "3.29.0"
     tslib "^2.3.0"
 
+"@aws-sdk/util-dynamodb@^3.29.0":
+  version "3.29.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-dynamodb/-/util-dynamodb-3.29.0.tgz#0164f618cd5905646aef535fed8e8deceacc6f2d"
+  integrity sha512-hLb9dofCpPdlQTJXXHGVbTAkDw2+bPCo5kIsXwp9nhpjA40H6igq1cO98Y6tNblAn5yW47DVbde1NLIVqKWDxw==
+  dependencies:
+    tslib "^2.3.0"
+
 "@aws-sdk/util-hex-encoding@3.29.0":
   version "3.29.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/util-hex-encoding/-/util-hex-encoding-3.29.0.tgz#b4e443d48c9077c67a68c825e52c13daff5b164f"
