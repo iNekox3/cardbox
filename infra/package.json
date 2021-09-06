@@ -1,0 +1,13 @@
+{
+  "name": "cardbox-infra",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.29.0",
+    "@aws-sdk/util-dynamodb": "^3.29.0"
+  },
+  "scripts": {
+    "start": "source .env && node start.js"
+  }
+}
