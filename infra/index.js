@@ -3,20 +3,44 @@ const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 const dynamodb = new DynamoDBClient({ region: process.env.AWS_REGION });
 
-async function handler() {
-  const params = {
-    TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
-    Key: marshall({
-      [process.env.AWS_DYNAMODB_PARTITION_KEY]: process.env.TEST_USER,
-    }),
+// GET /getFlashcards/{user}
+async function getFlashcards(event) {
+  const response = {
+    isBase64Encoded: false,
+    statusCode: 200,
+    headers: {
+      "content-type": "application/json",
+    },
+    body: "",
   };
 
   try {
-    const data = await dynamodb.send(new GetItemCommand(params));
-    console.log("Success", unmarshall(data.Item));
+    const user = event.pathParameters.user;
+
+    const params = {
+      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
+      Key: marshall({
+        [process.env.AWS_DYNAMODB_PARTITION_KEY]: user,
+      }),
+    };
+
+    const { Item } = await dynamodb.send(new GetItemCommand(params));
+
+    response.body = JSON.stringify({
+      message: "Successfully retrieved flashcards.",
+      data: Item ? unmarshall(Item) : {},
+    });
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
+    response.statusCode = 500;
+    response.body = JSON.stringify({
+      message: "Failed to get flashcards.",
+      errorMsg: err.message,
+      errorStack: err.stack,
+    });
   }
+
+  return response;
 }
 
-exports.handler = handler;
+exports.handler = getFlashcards;
