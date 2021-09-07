@@ -28,7 +28,7 @@ async function getFlashcards(event) {
 
     response.body = JSON.stringify({
       message: "Successfully retrieved flashcards.",
-      data: Item ? unmarshall(Item) : {},
+      flashcards: Item ? unmarshall(Item).flashcards : [],
     });
   } catch (err) {
     console.error(err);
