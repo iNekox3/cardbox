@@ -1,7 +1,7 @@
-const { getFlashcards } = require(".");
+const { handler } = require(".");
 
 const run = async () => {
-  const res = await getFlashcards({
+  const res = await handler({
     pathParameters: { user: process.env.TEST_USER },
   });
   console.log(res);
