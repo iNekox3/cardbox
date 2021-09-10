@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mockData } from "./mockData";
+import { getFlashCards } from "../services/flashcards.services";
 
 const QUESTION_NUMBER_START = 1;
 const EMPTY_FLASH_CARD = {
@@ -92,6 +93,10 @@ export const HomePage = (): JSX.Element => {
   const currentflashCard = flashCards[questionNumber - 1];
   const isLastCard = questionNumber === flashCards.length;
   const isInvalidInput = formFields.front === "" || formFields.back === "";
+
+  useEffect(() => {
+    getFlashCards().then((flashCards) => setFlashCards(flashCards));
+  }, []);
 
   const loadMockData = () => {
     // Shuffle logic: https://stackoverflow.com/a/46545530
