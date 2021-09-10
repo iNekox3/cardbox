@@ -1,5 +1,6 @@
 const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
+const { corsHeaders } = require("./cors");
 
 const dynamodb = new DynamoDBClient({ region: process.env.AWS_REGION });
 
@@ -26,9 +27,10 @@ async function getFlashcards(event) {
 
     const { Item } = await dynamodb.send(new GetItemCommand(params));
 
+    response.headers = corsHeaders;
     response.body = JSON.stringify({
       message: "Successfully retrieved flashcards.",
-      data: Item ? unmarshall(Item) : {},
+      flashcards: Item ? unmarshall(Item).flashcards : [],
     });
   } catch (err) {
     console.error(err);
