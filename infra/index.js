@@ -1,3 +1,7 @@
 const { getFlashcards } = require("./lambda/flashcards.lambda");
+const { checkAuthorization } = require("./lambda/authorization.lambda");
 
-exports.handler = getFlashcards;
+module.exports = {
+  getFlashcards,
+  checkAuthorization,
+};
