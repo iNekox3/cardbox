@@ -7,7 +7,11 @@ export const getFlashCards: () => Promise<IFlashCard[]> = async () => {
   try {
     const api = process.env.REACT_APP_API_ENDPOINT;
     const routeDetails = `/getFlashcards/${process.env.REACT_APP_TEST_USER}`;
-    const response = await axios.get(`${api}${routeDetails}`);
+    const response = await axios.get(`${api}${routeDetails}`, {
+      headers: {
+        Authorization: process.env.REACT_APP_AUTHORIZATION_TOKEN,
+      },
+    });
     return response.data.flashcards || [];
   } catch (err) {
     console.log(err);

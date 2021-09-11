@@ -1,10 +1,22 @@
-const { handler } = require(".");
+const { getFlashcards, checkAuthorization } = require("./index");
 
-const run = async () => {
-  const res = await handler({
+const runGetFlashcards = async () => {
+  const res = await getFlashcards({
     pathParameters: { user: process.env.TEST_USER },
   });
   console.log(res);
 };
 
-run();
+const runCheckAuthorization = (forceUnauthorization = false) => {
+  console.log(
+    checkAuthorization({
+      headers: {
+        Authorization: forceUnauthorization
+          ? ""
+          : process.env.AUTHORIZATION_TOKEN,
+      },
+    })
+  );
+};
+
+runCheckAuthorization(true);

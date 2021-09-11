@@ -5,6 +5,8 @@ const origin =
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": origin,
+  "Access-Control-Allow-Headers": "Authorization",
+  "Access-Control-Allow-Credentials": true,
 };
 
 exports.corsHeaders = corsHeaders;
